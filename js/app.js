@@ -13,6 +13,7 @@ const gameBoard = [
     [0,0,0,0,0,0,0,0,0,0,0,0],
 ]
 
+$/// put this to  start button click ("#gameMusic").attr("src","songFilename.mp3")
 
 let square;
 function generateMaze(){
@@ -140,18 +141,20 @@ const doctor = {
     regeneration(){
         this.x = 0
         this.y = 9
-        if (this.lives === 2){
+        if (this.lives=== 3){
+            this.className = 'doctor11'
+            $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
+            this.screwDriver= 'screwdriver11'
+            lostItems[1].render()
+        }
+        else if (this.lives === 2){
             this.className = 'doctor12'
-            this.className = 'doctor12'
-            this.classNameLeft = 'doctor12Left'
             $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
             this.screwDriver= 'screwdriver12'
             lostItems[1].render()
         } else if (this.lives === 1){
             $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
             this.className = 'doctor13'
-            this.classNameRight = 'doctor13'
-            this.classNameLeft = 'doctor13Left'
             this.screwDriver= 'screwdriver13'
             lostItems[1].render()
         }
@@ -217,7 +220,7 @@ $('body').on('keydown', function(e){
 })
 // let interval;
 
-
+const aliens = [];
 class Alien{
     constructor(x,y,image, speed){
         this.x = x
@@ -232,6 +235,7 @@ class Alien{
             this.checkKill();
             doctor.checkWin();
         }, 10);
+        aliens.push(this);
     }  
     render(){
         grabSquare(this.x,this.y).addClass(this.image)
@@ -459,7 +463,13 @@ function fillInPlayerStats (){
         $(`.name${i+1}`).text(sortedArray[i].name)
     }
 }
-
+function buildStartButton (){
+    const replay = $('<div class=replayButton>').text('REPLAY')
+    $('.highScoreBoard').append(replay)
+    replay.click(function(e) {
+        start();
+    });
+}
 
 function score(){
     endGame();
@@ -469,7 +479,40 @@ function score(){
     addEnterButton();
     buildHighScoreNameBox();
     buildScoreHolderTable();
+    buildStartButton();
     fillInPlayerStats();
 }
 
+function start (){
+    for(let i = 0; i < aliens.length; i++){
+        aliens[i].destroy();
+        aliens[i].removeAlien();
+
+    }
+    $('body').empty()
+    doctor.lives = 3
+    doctor.energy = 0
+    doctor.direction =  null,
+    doctor.itemsFound = 0
+    generateMaze()
+    doctor.regeneration()
+    lostItems[2].render();
+    grabSquare(1,1).removeClass('coin')
+    grabSquare(1,1).addClass('key')
+    grabSquare(10,10).removeClass('coin')
+    grabSquare(10,10).addClass(`${doctor.screwDriver}`)
+    // Alien2 = new Alien(7,5,"alien1",500);
+    $('.alien2').removeClass('alien2')
+    $('.alien3').removeClass('alien3')
+    $('.alien4').removeClass('alien4')
+    $('.alien5').removeClass('alien5')
+    // Alien2.render(7,5)
+    // Alien3.render(5,6)
+    // Alien4.render(5,4)
+    // Alien5.render(6,6)
+    let Alien6 = new Alien(7,5,"alien1",500);
+    let Alien7 = new Alien(5,6,"alien2",500);
+    let Alien8 = new Alien(5,4,"alien3",500);
+    let Alien9 = new Alien(6,6,"alien4",500);
+}
 
