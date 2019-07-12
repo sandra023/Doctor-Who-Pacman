@@ -16,7 +16,30 @@ const gameBoard = [
 
 let square;
 function generateMaze(){
-    //loop to make the html 
+    // loop to make the html 
+    const mazeContainer = $('<div id=mazeContainer>')
+    $('body').append(mazeContainer)
+    const infoDiv = $('<div>').addClass('infoBoard')
+    $(mazeContainer).append(infoDiv)
+    const leftDiv =  $('<div class=column id=left>')
+    const middleDiv = $('<div class=column id=middle>')
+    const rightDiv = $('<div class=column id=right>')
+    const energyH4 = $('<h4 id=energyCoins>').text('Energy Coins')
+    const itemsH4 = $('<h4 id=items>').text('Items Found')
+    const livesH4 =$('<h4 id=h4lives>').text('Lives')
+    const first = $('<div class=columnB>').addClass('first')
+    const second = $('<div class=columnB>').addClass('second')
+    const third = $('<div class=column>').addClass('third')
+    const energy = $('<p id=energy>').text(0)
+    const lives = $('<p id=lives>').text(3)
+    $(infoDiv).append(leftDiv, middleDiv, rightDiv,)
+    $(leftDiv).append(energyH4)
+    $(energyH4).append(energy)
+    $(middleDiv).append(itemsH4, first, second, third)
+    $(rightDiv).append(livesH4)
+    $(livesH4).append(lives)
+    const mazeDiv = $('<div>').addClass('maze')
+    $('#mazeContainer').append(mazeDiv)
     for(let y=0; y<gameBoard.length; y++){
         const div = $('<div>').addClass(`column${y+1}`)
         $('.maze').append(div)
@@ -53,7 +76,6 @@ function grabSquare(x,y){
 // let snd = new Audio("Mario-coin-sound/Mario-coin-sound.mp3");
 // snd.play();
 
-let timeout;
 const doctor = {
     energy: -1,
     x:0,
@@ -63,6 +85,8 @@ const doctor = {
     itemsFound: 0,
     alive: true,
     className: "doctor11",
+    classNameRight: 'doctor11',
+    classNameLeft: "doctor11Left",
     screwDriver: 'screwdriver11',
     render(){
         $(`.${this.className}`).removeClass('key')
@@ -70,10 +94,10 @@ const doctor = {
         $(`.${this.className}`).removeClass('coin')
         $(`.${this.className}`).removeClass(`${this.className}`)
         grabSquare(this.x,this.y).addClass(`${this.className}`)
-
     },
     move(){
-        if (this.alive){
+        if (this.alive)
+        {
         if(this.direction=== "left" && grabSquare(this.x-1,this.y).hasClass('path')){
             this.x--;
         } else if (this.direction === "right" && grabSquare(this.x+1,this.y).hasClass('path')){
@@ -83,6 +107,7 @@ const doctor = {
         } else if (this.direction === "down" && grabSquare(this.x,this.y-1).hasClass('path')){
             this.y--
         }
+        // this.whichWay();
         this.gatherItems()
         this.render();
 
@@ -93,31 +118,16 @@ const doctor = {
     },
     gatherItems(){
         if (grabSquare(this.x,this.y).hasClass('coin')){
-            // console.log("Collected an energy coin!")
-            // console.log(this.energy)
             this.energy++
             $('#energy').text(this.energy)
         } else if (grabSquare(this.x,this.y).hasClass('key')){
-            // console.log("You've found the Tardis Key!")
-                    // add key image to score board
-                    $('.first').addClass('key')
+            $('.first').addClass('key')
             this.itemsFound++
         } else if (grabSquare(this.x,this.y).hasClass(`${this.screwDriver}`)){
-            // console.log("You've found the Sonic Screwdriver!")
-                //add screwdriver picture to scoreboard
-                $('.second').addClass(`${this.screwDriver}`)
+            $('.second').addClass(`${this.screwDriver}`)
             this.itemsFound++
         }
     },
-    // whichWay (){
-    //     if (this.direction === 'left'){
-                // this.className = this.className'left'
-    //     } else if (this.direction === 'right'){
-                // this.className = .doctor11Left
-
-    //         $('.doctor').css('background-image','url(DoctorWho/11RunningRight.gif)')
-    //     }
-    // },
     doctorDies (){
         $(`.${this.className}`).removeClass(`${this.className}`);
         this.alive = false;
@@ -132,12 +142,16 @@ const doctor = {
         this.y = 9
         if (this.lives === 2){
             this.className = 'doctor12'
+            this.className = 'doctor12'
+            this.classNameLeft = 'doctor12Left'
             $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
             this.screwDriver= 'screwdriver12'
             lostItems[1].render()
         } else if (this.lives === 1){
             $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
             this.className = 'doctor13'
+            this.classNameRight = 'doctor13'
+            this.classNameLeft = 'doctor13Left'
             this.screwDriver= 'screwdriver13'
             lostItems[1].render()
         }
@@ -164,7 +178,7 @@ const doctor = {
                 this.y = 1
                 this.direction = null
                 grabSquare(this.x,this.y).addClass(`${this.className}`)
-            }
+            } 
         }
     },
     gameOver (){
@@ -311,10 +325,33 @@ lostItems[2].render();
 
 
 
-/// scoreboard
+////////////////// scoreboard
+
 let playerScore = 0
-let highScoreArray = []
 let playerName = ''
+const highScoreArray = [
+    {
+        name: 'PACMAN',
+        score: 5
+    },
+    {
+        name: 'MS.PACMAN',
+        score: 4
+    },
+    {
+        name: 'MARIO',
+        score: 3
+    },
+    {
+        name: 'LUIGI',
+        score: 2
+    },
+    {
+        name: 'DONKEY KONG',
+        score: 1
+    }
+]
+
 function endGame(){
     playerScore = doctor.energy
     $('body').empty()
@@ -324,16 +361,18 @@ function buildScoreboard(){
     const board = $('<div>').addClass("highScoreBoard")
     $('body').append(board)
     const highScore = $('<h2 class=highScore/>').text("HIGH SCORE")
-    $('.highScoreBoard').append(highScore)
+    // $(board).append(highScore)
     const theplayerScore = $('<h2 class=playerScore/>')
-    $('.highScoreBoard').append(theplayerScore)
-    $('.playerScore').text(playerScore)
+    // $('.highScoreBoard').append(theplayerScore)
+    // $('.playerScore').text(playerScore)
     const nameReg = $('<h2 class=nameRegister/>').text("NAME REGISTRATION")
-    $('.highScoreBoard').append(nameReg)
+    // $('.highScoreBoard').append(nameReg)
     const name = $('<div class=columnC id=name/>').text("Name:")
     const nameEnter = $('<div class=columnC id=nameEnter/>')
-    $('.highScoreBoard').append(name)
-    $('.highScoreBoard').append(nameEnter)
+    $(board).append(highScore, theplayerScore, nameReg, name, nameEnter)
+    $('.playerScore').text(playerScore)
+
+    // $('.highScoreBoard').append(nameEnter)
 }
 /* <div class="column" id="middle"></div> */
 
@@ -360,16 +399,33 @@ function buildLetters (){
             }
           });
     }
+} 
+function addEnterButton (){
     const enter = $(`<div class=letter id=28>`).text('END')
     $('.alphabet').append(enter)
     enter.click(function(){
-        highScoreArray.push(playerName)
-        playerName = ''
+        addNameScore();
         for(let y = 1; y < 11; y++){
             $(`.columnD${y}`).text('');
+            $(`.columnD${y}`).css('text-decoration','none');
         }
+        playerName = ''
+        playerScore = 0
+        fillInPlayerStats();
     })
 }
+
+function addNameScore (){
+    highScoreArray.push(playerName)
+    for (let i = 0; i< highScoreArray.length; i++){
+        if(highScoreArray[i].name === '' || playerScore > highScoreArray[4].score){
+            highScoreArray[5] =  {"name": playerName, "score": playerScore}
+            // highScoreArray[5].score = playerScore
+            break; 
+        }
+    }
+}
+
 function buildHighScoreNameBox (){
     const nameListHeader = $('<h3 class=nameRegistared/>').text("YOUR NAME WAS REGISTERED.")
     $('.highScoreBoard').append(nameListHeader)
@@ -393,13 +449,27 @@ function buildScoreHolderTable (){
     }
 }
 
+function fillInPlayerStats (){
+    const sortedArray = highScoreArray.sort(function(a,b) {
+        return b.score - a.score
+    });
+    console.log(sortedArray[0].score)
+    for(i=0; i<5; i++){
+        $(`.score${i+1}`).text(sortedArray[i].score)
+        $(`.name${i+1}`).text(sortedArray[i].name)
+    }
+}
+
 
 function score(){
     endGame();
     buildScoreboard();
     buildNameBoxes();
     buildLetters();
+    addEnterButton();
     buildHighScoreNameBox();
     buildScoreHolderTable();
+    fillInPlayerStats();
 }
+
 
