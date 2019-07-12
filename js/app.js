@@ -12,6 +12,8 @@ const gameBoard = [
     [0,1,1,1,0,0,0,0,1,1,1,0],
     [0,0,0,0,0,0,0,0,0,0,0,0],
 ]
+
+
 let square;
 function generateMaze(){
     //loop to make the html 
@@ -33,11 +35,6 @@ function generateMaze(){
 }
 generateMaze();                               
    
-function addIcons(){
-    const tardis = $('.column12:nth-child(3)');
-    tardis.attr('class', 'tardis')
-}
-addIcons()
 
 function colorMaze (){
     for(let i = 0; i < gameBoard.length; i++){
@@ -65,12 +62,14 @@ const doctor = {
     direction: null,
     itemsFound: 0,
     alive: true,
+    className: "doctor11",
+    screwDriver: 'screwdriver11',
     render(){
-        $('.doctor').removeClass('key')
-        $('.doctor').removeClass('screwdriver')
-        $('.doctor').removeClass('coin')
-        $('.doctor').removeClass('doctor')
-        grabSquare(this.x,this.y).addClass('doctor')
+        $(`.${this.className}`).removeClass('key')
+        $(`.${this.className}`).removeClass(`${this.screwDriver}`)
+        $(`.${this.className}`).removeClass('coin')
+        $(`.${this.className}`).removeClass(`${this.className}`)
+        grabSquare(this.x,this.y).addClass(`${this.className}`)
 
     },
     move(){
@@ -103,24 +102,25 @@ const doctor = {
                     // add key image to score board
                     $('.first').addClass('key')
             this.itemsFound++
-        } else if (grabSquare(this.x,this.y).hasClass('screwdriver')){
+        } else if (grabSquare(this.x,this.y).hasClass(`${this.screwDriver}`)){
             // console.log("You've found the Sonic Screwdriver!")
                 //add screwdriver picture to scoreboard
-                $('.second').addClass('screwdriver')
+                $('.second').addClass(`${this.screwDriver}`)
             this.itemsFound++
         }
     },
-    whichWay (){
-        if (this.direction === 'left'){
-            $('.doctor').css('background-image','url(DoctorWho/11RunningLeft.gif)')
-        } else if (this.direction === 'right'){
-            $('.doctor').css('background-image','url(DoctorWho/11RunningRight.gif)')
-        }
-    },
+    // whichWay (){
+    //     if (this.direction === 'left'){
+                // this.className = this.className'left'
+    //     } else if (this.direction === 'right'){
+                // this.className = .doctor11Left
+
+    //         $('.doctor').css('background-image','url(DoctorWho/11RunningRight.gif)')
+    //     }
+    // },
     doctorDies (){
-        $('.doctor').removeClass('doctor');
+        $(`.${this.className}`).removeClass(`${this.className}`);
         this.alive = false;
-        // this.stopAliens();
         this.lives--
         direction = null
         $('#lives').text(this.lives)
@@ -130,7 +130,18 @@ const doctor = {
     regeneration(){
         this.x = 0
         this.y = 9
-        grabSquare(this.x,this.y).addClass('doctor')
+        if (this.lives === 2){
+            this.className = 'doctor12'
+            $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
+            this.screwDriver= 'screwdriver12'
+            lostItems[1].render()
+        } else if (this.lives === 1){
+            $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
+            this.className = 'doctor13'
+            this.screwDriver= 'screwdriver13'
+            lostItems[1].render()
+        }
+        grabSquare(this.x,this.y).addClass(`${this.className}`)
         this.alive = true
         this.render()
     },
@@ -141,18 +152,35 @@ const doctor = {
         Alien5.destroy();
 
     },
+    checkWin (){
+        if(grabSquare(this.x,this.y).hasClass('tardis')){
+            if ($('.first').hasClass('key') &&  $('.second').hasClass(`${this.screwDriver}`)){
+            alert("You've reached the Tardis!")
+            endGame();
+            score();
+            } else {
+                alert("You're missing something! Make sure you find everything that was lost.")
+                this.x = 10
+                this.y = 1
+                this.direction = null
+                grabSquare(this.x,this.y).addClass(`${this.className}`)
+            }
+        }
+    },
     gameOver (){
         if(this.lives === 0){
         alert("Game Over")
         this.stopAliens();
         endGame();
+        setTimeout(()=>{
+            score();
+        },250)
         }
     }
 }
 
 
 doctor.render()
-// doctor.whichWay()
 doctor.move()
 
 
@@ -173,7 +201,7 @@ $('body').on('keydown', function(e){
     
     }
 })
-let interval;
+// let interval;
 
 
 class Alien{
@@ -185,17 +213,17 @@ class Alien{
         this.speed = speed
         this.interval1 = setInterval(()=>{ 
             this.alienMoves();
-            this.checkKill();
         }, this.speed);
         this.interval2 = setInterval(()=>{ 
             this.checkKill();
+            doctor.checkWin();
         }, 10);
     }  
     render(){
         grabSquare(this.x,this.y).addClass(this.image)
     }
     checkKill (){
-        if (grabSquare(this.x,this.y).hasClass('doctor')){
+        if (grabSquare(this.x,this.y).hasClass(`${doctor.className}`)){
             doctor.doctorDies();
             doctor.gameOver();
         }
@@ -212,7 +240,7 @@ class Alien{
                 this.removeAlien();
                 this.x--;
                 this.render()
-                this.checkKill();
+                // this.checkKill();
         }
         } else if (randomNum === 1){
             //move right
@@ -220,7 +248,7 @@ class Alien{
                 this.removeAlien();
                 this.x++;
                 this.render();
-                this.checkKill();
+                // this.checkKill();
         }
         } else if (randomNum === 2){
             //move up
@@ -229,7 +257,7 @@ class Alien{
                 this.removeAlien();
                 this.y++;
                 this.render();
-                this.checkKill();
+                // this.checkKill();
         }
         } else if (randomNum === 3){
             //move down
@@ -237,7 +265,7 @@ class Alien{
                 this.removeAlien();
                 this.y--
                 this.render();
-                this.checkKill();
+                // this.checkKill();
         }
         }   
     }
@@ -264,7 +292,7 @@ const lostItems = [
     y:10,
     render(){
         grabSquare(this.x,this.y).removeClass('coin')
-        grabSquare(this.x,this.y).addClass('screwdriver')
+        grabSquare(this.x,this.y).addClass(`${doctor.screwDriver}`)
     }
 },
     tardis = {
@@ -284,13 +312,6 @@ lostItems[2].render();
 
 
 /// scoreboard
-
-
-// function gameOver (){
-//     grabSquare(2,5).css('background-image','url()')
-//     grabSquare(2,5).text('G')
-// }
-
 let playerScore = 0
 let highScoreArray = []
 let playerName = ''
@@ -372,8 +393,6 @@ function buildScoreHolderTable (){
     }
 }
 
-
-    
 
 function score(){
     endGame();

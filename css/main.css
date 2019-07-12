@@ -10,8 +10,8 @@ body {
 #mazeContainer {
     text-align: center;
     position: relative;
-    border: 2px solid #4A9FA2;
-    width: 42vmax;
+    /* border: 2px solid #4A9FA2; */
+    /* width: 42vmax; */
     height: 97vh;
     margin: 0 auto;
     /* animation: spin 4s infinite linear; */
@@ -23,7 +23,7 @@ body {
 .infoBoard {
     margin: 0 auto;
     height: 4vmax;
-    width: 41.2vmax;
+    /* width: 41.2vmax; */
     font-family: 'Press Start 2P', cursive;
     border: 5px solid black;
     background-color: black;
@@ -38,9 +38,6 @@ h4 {
     margin: 0 auto;
     font-size: 1vmax
 }
-span {
-    height: 5vmax
-}
 .column {
     float: left;
     height: 4vmax
@@ -52,7 +49,9 @@ span {
     clear: both;
   }
 .columnB {
-    float: left;
+    /* float: left; */
+    display: inline-block;
+    width: 33.3%;
     width: 3.5vmax;
     height: 3.5vmax;
     margin: 0 10px
@@ -66,15 +65,6 @@ span {
 #left {
     width: 35%
 }
-.rightBoard {
-    height: 48vmax;
-    font-family: 'Press Start 2P', cursive;
-    border: 5px solid black;
-    background-color: black;
-    vertical-align: middle;
-    color: blue
-}
-
 .maze div {
     width:  3.5vmax;
     height: 3.5vmax;
@@ -101,8 +91,18 @@ span {
     background-position: center;
 
 }
-.doctor {
+.doctor11 {
     background-image: url('../DoctorWho/11RunningRight.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.doctor12 {
+    background-image: url('../DoctorWho/doctor12.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.doctor13 {
+    background-image: url('../DoctorWho/doctor13right.gif');
     background-size: contain;
     background-repeat: no-repeat;
 }
@@ -137,8 +137,20 @@ span {
     background-position: center;
 }
 
-.screwdriver {
+.screwdriver11 {
     background-image: url('../DoctorWho/11Screwdriver.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.screwdriver12 {
+    background-image: url('../DoctorWho/12Screwdriver1.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.screwdriver13 {
+    background-image: url('../DoctorWho/doctor13screwdriver.gif');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -159,7 +171,7 @@ span {
 
 .highScoreBoard {
     background-color: black;
-    height: 47vmax;
+    height: 46vmax;
     width: 50vmax;
     margin: 0 auto;
 }
@@ -253,7 +265,6 @@ span {
     width: 35%;
     display: inline-block
 }
-
 .playerName {
     font-size: 1.25em;
     width: 40;
