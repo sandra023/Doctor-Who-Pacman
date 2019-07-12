@@ -1,0 +1,70 @@
+class Alien{
+    constructor(x,y,image){
+        this.x = x
+        this.y = y
+        this.image = image;
+        this.render();
+        setInterval(()=>{ 
+            this.alienMoves();
+        }, 1000);
+    }  
+    render(){
+        grabSquare(this.x,this.y).addClass('alien')
+        grabSquare(this.x,this.y).css('background-image',`url(${this.image})`)
+    }
+    checkKill (){
+        if (grabSquare(this.x,this.y).hasClass('doctor')){
+            $('.doctor').removeClass('doctor')}
+    }
+    alienMoves (){
+    let randomNum = Math.floor(Math.random() * 4);
+        if (randomNum === 0){
+            //move Left
+            if(grabSquare(this.x-1,this.y).hasClass('path') && !grabSquare(this.x-1,this.y).hasClass('alien')){
+                removeAlien();
+                this.x--;
+                this.render()
+                this.checkKill();
+        }
+        } else if (randomNum === 1){
+            //move right
+            if (grabSquare(this.x+1,this.y).hasClass('path')&& !grabSquare(this.x+1,this.y).hasClass('alien')){
+                this.removeAlien();
+                this.x++;
+                this.render();
+                this.checkKill();
+        }
+        } else if (randomNum === 2){
+            //move up
+            if (grabSquare(this.x,this.y+1).hasClass('path')&& !grabSquare(this.x,this.y+1).hasClass('alien')){
+                this.removeAlien();
+                this.y++;
+                this.render();
+                this.checkKill();
+        }
+        } else if (randomNum === 3){
+            //move down
+            if (grabSquare(this.x,this.y-1).hasClass('path')&& !grabSquare(this.x,this.y-1).hasClass('alien')){
+                this.removeAlien();
+                this.y--
+                this.render();
+                this.checkKill();
+        }
+        }   
+    }
+    removeAlien(){
+        if (grabSquare(this.x,this.y).hasClass('coin')){
+             grabSquare(this.x,this.y).css('background-image','url(DoctorWho/coin.gif)')
+        } else {
+            grabSquare(this.x,this.y).css('background-image',`url()`)
+        }
+        grabSquare(this.x,this.y).css('background-image',`url()`)
+        grabSquare(this.x,this.y).removeClass('alien')
+    }
+}
+
+
+const Alien2 = new Alien(6,4,"DoctorWho/dalek3.gif);
+const Alien3 = new Alien(5,6,"dalek2.gif");
+const Alien4 = new Alien(5,4,"movingDalek.gif");
+const Alien5 = new Alien(6,6,"DoctorWho/redDalek2.png");

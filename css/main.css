@@ -1,0 +1,265 @@
+body {
+    background-color: black;
+    background-image: url('../DoctorWho/spaceBackground.jpg');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-family: 'Press Start 2P', cursive;
+
+}
+#mazeContainer {
+    text-align: center;
+    position: relative;
+    border: 2px solid #4A9FA2;
+    width: 42vmax;
+    height: 97vh;
+    margin: 0 auto;
+    /* animation: spin 4s infinite linear; */
+}
+/* @keyframes spin {
+	0%  {-webkit-transform: rotate(0deg);}
+	100% {-webkit-transform: rotate(360deg);}	
+} */
+.infoBoard {
+    margin: 0 auto;
+    height: 4vmax;
+    width: 41.2vmax;
+    font-family: 'Press Start 2P', cursive;
+    border: 5px solid black;
+    background-color: black;
+    vertical-align: middle;
+    color: blue
+}
+.maze {
+    font-size: 0;
+    
+}
+h4 {
+    margin: 0 auto;
+    font-size: 1vmax
+}
+span {
+    height: 5vmax
+}
+.column {
+    float: left;
+    height: 4vmax
+  }
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+.columnB {
+    float: left;
+    width: 3.5vmax;
+    height: 3.5vmax;
+    margin: 0 10px
+  }
+#right {
+    width: 30%
+}
+#middle {
+    width: 35%
+}
+#left {
+    width: 35%
+}
+.rightBoard {
+    height: 48vmax;
+    font-family: 'Press Start 2P', cursive;
+    border: 5px solid black;
+    background-color: black;
+    vertical-align: middle;
+    color: blue
+}
+
+.maze div {
+    width:  3.5vmax;
+    height: 3.5vmax;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    background-color: black;
+}
+.wall {
+    background-image: url('../DoctorWho/tile2.png');
+    background-size: contain;
+
+}
+.coin {
+    background-image: url('../DoctorWho/coin.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+
+}
+.tardis {
+    background-image: url('../DoctorWho/tardis.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+.doctor {
+    background-image: url('../DoctorWho/11RunningRight.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.alien {
+    background-image: url('../DoctorWho/redDalek2.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.alien1 {
+    background-image: url('../DoctorWho/redDalek2.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.alien2 {
+    background-image: url('../DoctorWho/dalek.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.alien3 {
+    background-image: url('../DoctorWho/dalek1.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.alien4 {
+    background-image: url('../DoctorWho/dalek2.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.screwdriver {
+    background-image: url('../DoctorWho/11Screwdriver.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.key {
+    background-image: url('../DoctorWho/spinningKey2.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.companion {
+    background-image: url('../DoctorWho/dalek2.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.highScoreBoard {
+    background-color: black;
+    height: 47vmax;
+    width: 50vmax;
+    margin: 0 auto;
+}
+.highScore, .nameRegister {
+    color: rgb(252, 0, 34);
+    text-align: center;
+    padding: 5px 
+}
+.playerScore {
+    color: white;
+    text-align: center;
+    padding: 10px 
+}
+.columnC {
+    height: 2vmax;
+    margin: 0 auto
+}
+#name, #nameEnter {
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    color: rgb(74, 244, 250);
+}
+#name {
+    display:inline-block;
+    text-align: right;
+    width: 42%;
+    /* padding: 0 0 10px 10px;  */
+
+}
+#nameEnter {
+    display:inline-block;
+    text-align: left;
+    text-decoration: underline;
+    width: 40%;
+    padding: 0 0 0 10px;
+}
+.row1 {
+    display:inline-block;
+    width: 10%;
+    height: 100%;
+    text-decoration: underline
+
+}
+.alphabet {
+    text-align: center;
+    width: 50%;
+    display: inline-block;
+    margin: 0 25% 0 
+
+}
+.letter {
+    width: 8%;
+    font-size: 1.25em;
+    padding: 8px;
+    color: greenyellow;
+    display: inline-block;
+    cursor: pointer;
+}
+.letter:hover { 
+    background-color: re;
+  }
+.nameRegistared {
+    color: rgb(74, 244, 250);
+    text-align: center
+}
+.playerNameTable {
+ height: 30%;
+ width: 78%;
+ display: inline-block;
+ margin: 2% 11% 0 11%
+
+}
+.rank {
+    font-size: 1.25em;
+    text-align: center;
+    width: 20%;
+    display: inline-block
+}
+.rank1, .rank2 , .rank3, .score1, .score2, .score3, .name1, .name2, .name3 {
+    color: red;
+}
+.rank4, .rank5, .score4, .score5, .name4, .name5 {
+    color:  yellow;
+}
+.score {
+    font-size: 1.25em;
+    width: 35%;
+    display: inline-block
+}
+
+.playerName {
+    font-size: 1.25em;
+    width: 40;
+    display: inline-block
+}
+.playerRow {
+    height: 20%
+    
+}
