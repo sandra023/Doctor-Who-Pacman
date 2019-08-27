@@ -31,6 +31,8 @@ body {
 }
 .maze {
     font-size: 0;
+    display: inline-block;
+    border: 5px solid black;
     
 }
 h4 {
@@ -187,6 +189,7 @@ h4 {
     height: 43vmax;
     width: 50vmax;
     margin: 0 auto;
+    border: 5px solid red;
 }
 .highScore, .nameRegister {
     color: rgb(252, 0, 34);
@@ -297,5 +300,7 @@ h4 {
     border: 5px solid red;
     text-align: center;
     cursor: pointer;
-
+    background-color: black;
+    padding: 5px;
+}
 }
