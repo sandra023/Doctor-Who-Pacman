@@ -124,9 +124,11 @@ const doctor = {
         } else if (grabSquare(this.x,this.y).hasClass('key')){
             $('.first').addClass('key')
             this.itemsFound++
+            this.engery+=10
         } else if (grabSquare(this.x,this.y).hasClass(`${this.screwDriver}`)){
             $('.second').addClass(`${this.screwDriver}`)
             this.itemsFound++
+            this.energy+=15
         }
     },
     doctorDies (){
@@ -161,6 +163,37 @@ const doctor = {
         grabSquare(this.x,this.y).addClass(`${this.className}`)
         this.alive = true
         this.render()
+        // if (this.lives=== 3){
+        //     this.className = 'doctor11'
+        //     $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
+        //     this.screwDriver= 'screwdriver11'
+        //     lostItems[1].render()
+        // }
+        // else if (this.lives === 2){
+        //     this.className = 'doctor12'
+        //     if($('.second').hasClass(`${this.screwDriver}`)){                
+        //         this.screwDriver= 'screwdriver12';    
+        //         ($('.second').removeClass(`${this.screwDriver}`))
+        //         ($('.second').addClass(`${this.screwDriver}`))
+        //     }else {
+        //     $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
+        //     this.screwDriver= 'screwdriver12'
+        //     lostItems[1].render()
+        //     }           
+        // } else if (this.lives === 1){
+        //     this.className = 'doctor13'
+        //     if($('.second').hasClass(`${this.screwDriver}`)){
+        //         this.screwDriver= 'screwdriver13'    
+        //     }else {
+        //     $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
+        //     this.screwDriver= 'screwdriver13'
+        //     lostItems[1].render()
+        //     }
+        // }
+        // grabSquare(this.x,this.y).addClass(`${this.className}`)
+        // this.alive = true
+        // this.render()
+      
     },
     stopAliens (){
         Alien2.destroy();
