@@ -431,8 +431,10 @@ function buildLetters (){
                     break;
                 }
             }
-          });
+        });
+
     }
+
 } 
 function addEnterButton (){
     const enter = $(`<div class=letter id=28>`).text('SUBMIT')
@@ -447,6 +449,8 @@ function addEnterButton (){
         playerScore = 0
         buildHighScoreNameBox();
         fillInPlayerStats();
+        $('.nameRegisteredSpot').remove()
+
     })
 }
 
@@ -503,12 +507,18 @@ function buildStartButton (){
     });
 }
 
+function addEmptySpot (){
+    const emptySpot = $('<div class=nameRegisteredSpot>')
+    $('.alphabet').append(emptySpot)
+}
+
 function score(){
     endGame();
     buildScoreboard();
     buildNameBoxes();
     buildLetters();
     addEnterButton();
+    addEmptySpot();
     // buildHighScoreNameBox();
     buildScoreHolderTable();
     buildStartButton();
