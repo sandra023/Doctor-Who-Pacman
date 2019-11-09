@@ -1,17 +1,21 @@
 body {
     margin: 0;
     background-color: black;
-    background-image: url('../DoctorWho/spaceBackground.jpg');
+    /* background-image: url('../DoctorWho/spaceBackground.jpg');
     background-attachment: fixed;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center; */
     font-family: 'Press Start 2P', cursive;
 
 }
 #mazeContainer {
+    background-image: url('../DoctorWho/spaceBackground.jpg');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
     text-align: center;
     position: relative;
-    height: 97vh;
+    height: 100vh;
     margin: 0 auto;
     /* animation: spin 4s infinite linear; */
 }
@@ -19,6 +23,13 @@ body {
 	0%  {-webkit-transform: rotate(0deg);}
 	100% {-webkit-transform: rotate(360deg);}	
 } */
+.boardContainer {
+    height: 100vh;
+    background-image: url('../DoctorWho/spaceBackground.jpg');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
+}
 .infoBoard {
     margin-left: auto;
     margin-right: auto;
@@ -192,7 +203,7 @@ h4 {
     background-position: center;
 }
 .firstDiv {
-    margin: 3%
+    height: 5%;
 }
 .highScoreBoard {
     background-color: black;
@@ -314,7 +325,7 @@ h4 {
     display: inline-block
 }
 .playerRow {
-    height: 20%;
+    height: 13%;
     padding: 1.5%
     
 }
