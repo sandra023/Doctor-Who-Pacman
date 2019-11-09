@@ -24,7 +24,7 @@ body {
 	100% {-webkit-transform: rotate(360deg);}	
 } */
 .boardContainer {
-    height: 100vh;
+    height: 105vh;
     background-image: url('../DoctorWho/spaceBackground.jpg');
     background-attachment: fixed;
     background-repeat: no-repeat;
