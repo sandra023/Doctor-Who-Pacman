@@ -445,6 +445,7 @@ function addEnterButton (){
         }
         playerName = ''
         playerScore = 0
+        buildHighScoreNameBox();
         fillInPlayerStats();
     })
 }
@@ -462,7 +463,7 @@ function addNameScore (){
 
 function buildHighScoreNameBox (){
     const nameListHeader = $('<h3 class=nameRegistared/>').text("YOUR NAME WAS REGISTERED.")
-    $('.highScoreBoard').append(nameListHeader)
+    $('.alphabet').append(nameListHeader)
 }
 function buildScoreHolderTable (){
     const playerNameTable = $('<div>').addClass('playerNameTable')
@@ -508,7 +509,7 @@ function score(){
     buildNameBoxes();
     buildLetters();
     addEnterButton();
-    buildHighScoreNameBox();
+    // buildHighScoreNameBox();
     buildScoreHolderTable();
     buildStartButton();
     fillInPlayerStats();
