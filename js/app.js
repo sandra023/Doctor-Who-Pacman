@@ -395,15 +395,12 @@ function endGame(){
 }
 
 function buildScoreboard(){
+    const firstDiv = $('<div>').addClass('firstDiv')
     const board = $('<div>').addClass("highScoreBoard")
-    $('body').append(board)
+    $('body').append(firstDiv, board)
     const highScore = $('<h2 class=highScore/>').text("HIGH SCORE")
-    // $(board).append(highScore)
     const theplayerScore = $('<h2 class=playerScore/>')
-    // $('.highScoreBoard').append(theplayerScore)
-    // $('.playerScore').text(playerScore)
     const nameReg = $('<h2 class=nameRegister/>').text("NAME REGISTRATION")
-    // $('.highScoreBoard').append(nameReg)
     const name = $('<div class=columnC id=name/>').text("Name:")
     const nameEnter = $('<div class=columnC id=nameEnter/>')
     $(board).append(highScore, theplayerScore, nameReg, name, nameEnter)
@@ -438,7 +435,7 @@ function buildLetters (){
     }
 } 
 function addEnterButton (){
-    const enter = $(`<div class=letter id=28>`).text('END')
+    const enter = $(`<div class=letter id=28>`).text('SUBMIT')
     $('.alphabet').append(enter)
     enter.click(function(){
         addNameScore();
@@ -498,7 +495,8 @@ function fillInPlayerStats (){
 }
 function buildStartButton (){
     const replay = $('<div class=replayButton>').text('REPLAY')
-    $('.highScoreBoard').append(replay)
+    $('body').append(replay)
+    // $('.highScoreBoard').append(replay)
     replay.click(function(e) {
         start();
     });
