@@ -556,4 +556,3 @@ function start (){
     let Alien8 = new Alien(5,4,"alien3",500);
     let Alien9 = new Alien(6,6,"alien4",500);
 }
-
