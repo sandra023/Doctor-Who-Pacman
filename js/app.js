@@ -149,50 +149,52 @@ const doctor = {
             this.screwDriver= 'screwdriver11'
             lostItems[1].render()
         }
-        else if (this.lives === 2){
-            this.className = 'doctor12'
-            $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
-            this.screwDriver= 'screwdriver12'
-            lostItems[1].render()
-        } else if (this.lives === 1){
-            $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
-            this.className = 'doctor13'
-            this.screwDriver= 'screwdriver13'
-            lostItems[1].render()
-        }
-        grabSquare(this.x,this.y).addClass(`${this.className}`)
-        this.alive = true
-        this.render()
-        // if (this.lives=== 3){
-        //     this.className = 'doctor11'
-        //     $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
-        //     this.screwDriver= 'screwdriver11'
-        //     lostItems[1].render()
-        // }
         // else if (this.lives === 2){
         //     this.className = 'doctor12'
-        //     if($('.second').hasClass(`${this.screwDriver}`)){                
-        //         this.screwDriver= 'screwdriver12';    
-        //         ($('.second').removeClass(`${this.screwDriver}`))
-        //         ($('.second').addClass(`${this.screwDriver}`))
-        //     }else {
         //     $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
         //     this.screwDriver= 'screwdriver12'
         //     lostItems[1].render()
-        //     }           
         // } else if (this.lives === 1){
-        //     this.className = 'doctor13'
-        //     if($('.second').hasClass(`${this.screwDriver}`)){
-        //         this.screwDriver= 'screwdriver13'    
-        //     }else {
         //     $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
+        //     this.className = 'doctor13'
         //     this.screwDriver= 'screwdriver13'
         //     lostItems[1].render()
-        //     }
         // }
-        // grabSquare(this.x,this.y).addClass(`${this.className}`)
-        // this.alive = true
-        // this.render()
+        else if (this.lives === 2){
+            if($('.second').hasClass(`${this.screwDriver}`)){       
+                ($('.second').removeClass(`${this.screwDriver}`))
+                this.className = 'doctor12'         
+                this.screwDriver= 'screwdriver12';    
+                ($('.second').addClass(`${this.screwDriver}`))
+            }else {
+                this.className = 'doctor12'
+                $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
+                this.screwDriver= 'screwdriver12'
+                lostItems[1].render()
+            }           
+        } else if (this.lives === 1){
+            
+            console.log('this.lives',this.lives)
+            console.log('this.screwDrivers',this.screwDriver)
+
+            if($('.second').hasClass(`${this.screwDriver}`)){       
+                ($('.second').removeClass(`${this.screwDriver}`))
+                this.className = 'doctor13'         
+                this.screwDriver= 'screwdriver13';    
+                ($('.second').addClass(`${this.screwDriver}`))
+            }else {
+                this.className = 'doctor13'
+                $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
+                this.screwDriver= 'screwdriver13'
+                lostItems[1].render()
+            }
+        }
+    
+        grabSquare(this.x,this.y).addClass(`${this.className}`)
+        this.alive = true
+        this.render()
+
+ 
       
     },
     stopAliens (){

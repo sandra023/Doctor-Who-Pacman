@@ -34,7 +34,7 @@ body {
 .infoBoard {
     margin-left: auto;
     margin-right: auto;
-    height: 10%;
+    height: 12%;
     font-family: 'Press Start 2P', cursive;
     border: 5px solid black;
     background-color: black;
@@ -53,6 +53,12 @@ h4 {
     /* font-size: 1.3vmax */
     font-size: 100%
 }
+#energy {
+    margin: 6%
+}
+#lives {
+    margin: 6%
+}
 .column {
     float: left;
     height: 4vmax;
@@ -70,7 +76,7 @@ h4 {
     width: 33.3%;
     width: 3.5vmax;
     height: 3.5vmax;
-    margin: 0 10px
+    margin: 10px
   }
 #right {
     width: 33.33%
