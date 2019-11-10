@@ -107,24 +107,30 @@ const doctor = {
     direction: null,
     itemsFound: 0,
     alive: true,
-    className: "doctor11",
-    // classNameRight: 'doctor11',
-    // classNameLeft: "doctor11Left",
+    className: 'doctor11',
     screwDriver: 'screwdriver11',
-
+    doctorDirection: 'Right',
+    
     render(){
-        $(`.${this.className}`).removeClass('key')
-        $(`.${this.className}`).removeClass(`${this.screwDriver}`)
-        $(`.${this.className}`).removeClass('coin')
-        $(`.${this.className}`).removeClass(`${this.className}`)
-        grabSquare(this.x,this.y).addClass(`${this.className}`)
+        $(`.${this.className}Left`).removeClass('key')
+        $(`.${this.className}Right`).removeClass('key')
+        $(`.${this.className}Right`).removeClass(`${this.screwDriver}`)
+        $(`.${this.className}Left`).removeClass(`${this.screwDriver}`)
+        $(`.${this.className}Left`).removeClass('coin')
+        $(`.${this.className}Right`).removeClass('coin')
+        $(`.${this.className}Right`).removeClass(`${this.className}Right`)
+        $(`.${this.className}Left`).removeClass(`${this.className}Left`)
+
+        grabSquare(this.x,this.y).addClass(`${this.className}${this.doctorDirection}`)
     },
     move(){
         if (this.alive)
         {
         if(this.direction=== "left" && grabSquare(this.x-1,this.y).hasClass('path')){
+            // this.doctorDirection = "Left"
             this.x--;
         } else if (this.direction === "right" && grabSquare(this.x+1,this.y).hasClass('path')){
+            // this.doctorDirection = 'Right'
             this.x++;
         } else  if (this.direction=== "up" && grabSquare(this.x,this.y+1).hasClass('path')){
             this.y++;
@@ -155,7 +161,7 @@ const doctor = {
         }
     },
     doctorDies (){
-        $(`.${this.className}`).removeClass(`${this.className}`);
+        $(`.${this.className}${this.doctorDirection}`).removeClass(`${this.className}${this.doctorDirection}`);
         this.alive = false;
         this.lives--
         direction = null
@@ -174,11 +180,11 @@ const doctor = {
         // this.x = 0
         // this.y = 9
         if (this.lives=== 3){
-            this.className = 'doctor11'
+            this.className = 'doctor11Right'
             $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
             this.screwDriver= 'screwdriver11'
             lostItems[1].render()
-        }
+        
         // else if (this.lives === 2){
         //     this.className = 'doctor12'
         //     $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
@@ -190,14 +196,16 @@ const doctor = {
         //     this.screwDriver= 'screwdriver13'
         //     lostItems[1].render()
         // }
-        else if (this.lives === 2){
+        } else if (this.lives === 2){
             if($('.second').hasClass(`${this.screwDriver}`)){       
                 ($('.second').removeClass(`${this.screwDriver}`))
-                this.className = 'doctor12'         
+                this.className = 'doctor12'
+                this.doctorDirection = 'Right'
                 this.screwDriver= 'screwdriver12';    
                 ($('.second').addClass(`${this.screwDriver}`))
             }else {
                 this.className = 'doctor12'
+                this.doctorDirection = 'Right'
                 $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
                 this.screwDriver= 'screwdriver12'
                 if(this.level === 1){
@@ -209,11 +217,13 @@ const doctor = {
         } else if (this.lives === 1){
             if($('.second').hasClass(`${this.screwDriver}`)){       
                 ($('.second').removeClass(`${this.screwDriver}`))
-                this.className = 'doctor13'         
+                this.className = 'doctor13'
+                this.doctorDirection = 'Right'
                 this.screwDriver= 'screwdriver13';    
                 ($('.second').addClass(`${this.screwDriver}`))
             }else {
                 this.className = 'doctor13'
+                this.doctorDirection = 'Right'
                 $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
                 this.screwDriver= 'screwdriver13'
                 if(this.level === 1){
@@ -224,7 +234,8 @@ const doctor = {
                 
             }
         }
-        grabSquare(this.x,this.y).addClass(`${this.className}`)
+        grabSquare(this.x,this.y).addClass(`${this.className}${this.doctorDirection}`)
+        // grabSquare(this.x,this.y).addClass(`${this.classNameRight}`)
         this.alive = true
         this.render()
     },
@@ -258,7 +269,9 @@ const doctor = {
                 this.x = 10
                 this.y = 1
                 this.direction = null
-                grabSquare(this.x,this.y).addClass(`${this.className}`)
+                grabSquare(this.x,this.y).addClass(`${this.className}${this.doctorDirection}`)
+                // grabSquare(this.x,this.y).addClass(`${this.classNameLeft}`)
+
             } 
         }
     },
@@ -284,9 +297,11 @@ $('body').on('keydown', function(e){
     switch(e.which){
         case 37:
         doctor.direction = "left";
+        doctor.doctorDirection = 'Left'
         break;
         case 39:
         doctor.direction ="right";
+        doctor.doctorDirection = 'Right'
         break;
         case 38:
         doctor.direction ="down";
@@ -319,7 +334,8 @@ class Alien{
         grabSquare(this.x,this.y).addClass(this.image)
     }
     checkKill (){
-        if (grabSquare(this.x,this.y).hasClass(`${doctor.className}`)){
+        if (grabSquare(this.x,this.y).hasClass(`${doctor.className}${doctor.doctorDirection}`)){
+        // if (grabSquare(this.x,this.y).hasClass(`${doctor.classNameRight}`)|| grabSquare(this.x,this.y).hasClass(`${doctor.classNameLeft}`)){
             doctor.doctorDies();
             doctor.gameOver();
         }

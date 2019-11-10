@@ -127,37 +127,39 @@ h4 {
     background-position: center;
 
 }
-.doctor11 {
+.doctor11Right {
     background-image: url('../DoctorWho/11RunningRight.gif');
     background-size: contain;
     background-repeat: no-repeat;
 }
-/* .doctor11Left {
+.doctor11Left {
     background-image: url('../DoctorWho/11RunningLeft.gif');
     background-size: contain;
     background-repeat: no-repeat;
-} */
-.doctor12 {
+}
+.doctor12Right {
     background-image: url('../DoctorWho/doctor12.gif');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 }
-/* .doctor12Left {
-    background-image: url('../DoctorWho/doctor12left.gif');
+.doctor12Left {
+    background-image: url('../DoctorWho/doctor12Left.gif');
     background-size: contain;
     background-repeat: no-repeat;
-} */
-.doctor13 {
+    background-position: center;
+
+}
+.doctor13Right {
     background-image: url('../DoctorWho/doctor13right.gif');
     background-size: contain;
     background-repeat: no-repeat;
 }
-/* .doctor13Left {
+.doctor13Left {
     background-image: url('../DoctorWho/doctor13left.gif');
     background-size: contain;
     background-repeat: no-repeat;
-} */
+}
 .alien {
     background-image: url('../DoctorWho/redDalek2.png');
     background-size: contain;
