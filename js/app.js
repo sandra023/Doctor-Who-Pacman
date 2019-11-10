@@ -1,4 +1,4 @@
-const gameBoard = [
+const gameBoardLevelOne = [
     [0,0,0,0,0,0,0,0,0,0,0,0],
     [0,1,1,1,1,0,0,1,1,1,1,1],
     [0,1,0,0,1,1,1,1,0,0,1,0],
@@ -13,11 +13,30 @@ const gameBoard = [
     [0,0,0,0,0,0,0,0,0,0,0,0],
 ]
 
-$/// put this to  start button click ("#gameMusic").attr("src","songFilename.mp3")
+const gameBoardLevelTwo = [
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,1,1,1,1,0,1,1,1,0,1,1,1,1,1],
+    [0,1,0,0,1,0,1,0,1,0,1,0,0,1,0],
+    [0,1,0,1,1,1,1,0,1,1,1,1,0,1,0],
+    [0,1,1,1,0,0,1,1,1,0,0,1,1,1,0],
+    [0,1,0,1,1,1,1,0,1,1,1,1,0,1,0],
+    [0,1,1,1,0,1,0,1,0,1,0,1,1,1,0],
+    [0,0,0,1,0,1,1,1,1,1,0,1,0,0,0],
+    [0,1,1,1,0,1,0,1,0,1,0,1,1,1,0],
+    [0,1,0,1,1,1,1,0,1,1,1,1,0,1,0],
+    [0,1,1,1,0,0,1,1,1,0,0,1,1,1,0],
+    [0,1,0,1,1,1,1,0,1,1,1,1,0,1,0],
+    [1,1,0,0,1,0,1,0,1,0,1,0,0,1,0],
+    [0,1,1,1,1,0,1,1,1,0,1,1,1,1,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+]
 
+
+// put this to  start button click ("#gameMusic").attr("src","songFilename.mp3")
+let gameBoard = gameBoardLevelOne
 let square;
-function generateMaze(){
-    // loop to make the html 
+
+function buildInfoBoard(){
     const mazeContainer = $('<div id=mazeContainer>')
     $('body').append(mazeContainer)
     const infoDiv = $('<div>').addClass('infoBoard')
@@ -25,6 +44,9 @@ function generateMaze(){
     const leftDiv =  $('<div class=column id=left>')
     const middleDiv = $('<div class=column id=middle>')
     const rightDiv = $('<div class=column id=right>')
+    const farRightDiv = $('<div class=column id=level>')
+    const levelH4 = $('<h4 id=level>').text('Level')
+    const levelNumber = $('<p id=levelNumber>').text(1)
     const energyH4 = $('<h4 id=energyCoins>').text('Energy Coins')
     const itemsH4 = $('<h4 id=items>').text('Items Found')
     const livesH4 =$('<h4 id=h4lives>').text('Lives')
@@ -33,42 +55,40 @@ function generateMaze(){
     const third = $('<div class=column>').addClass('third')
     const energy = $('<p id=energy>').text(0)
     const lives = $('<p id=lives>').text(3)
-    $(infoDiv).append(leftDiv, middleDiv, rightDiv,)
+    $(infoDiv).append(leftDiv, middleDiv, rightDiv, farRightDiv)
     $(leftDiv).append(energyH4)
     $(energyH4).append(energy)
     $(middleDiv).append(itemsH4, first, second, third)
     $(rightDiv).append(livesH4)
     $(livesH4).append(lives)
+    $(farRightDiv).append(levelH4)
+    $(levelH4).append(levelNumber)
     const mazeDiv = $('<div>').addClass('maze')
     $('#mazeContainer').append(mazeDiv)
-    for(let y=0; y<gameBoard.length; y++){
+}
+
+function generateMaze() {
+        for(let y=0; y<gameBoard.length; y++){
         const div = $('<div>').addClass(`column${y+1}`)
         $('.maze').append(div)
-            for (let x=0; x<gameBoard[y].length; x++){
-                const square = $(`<div x=${y} y=${x}/>`);
-                square.addClass('square');
-                $(`.column${y+1}`).append(square)
-                if(gameBoard[x][y]=== 0){
-                    square.addClass('wall')} 
-                else if(gameBoard[x][y]=== 1){
-                    square.addClass('path')
-                    square.addClass('coin')
-                }
-            }  
-    }
-}
-generateMaze();                               
-   
-
-function colorMaze (){
-    for(let i = 0; i < gameBoard.length; i++){
-        for(let b = 0; b < gameBoard[i].length; b++){
-                if(gameBoard[i][b]=== 0){
-                    square.css('background-color','black')         
-                }        
+        for (let x=0; x<gameBoard[y].length; x++){
+            const square = $(`<div x=${y} y=${x}/>`);
+            square.addClass('square');
+            $(`.column${y+1}`).append(square)
+            if(gameBoard[x][y]=== 0){
+                square.addClass('wall')} 
+            else if(gameBoard[x][y]=== 1){
+                square.addClass('path')
+                square.addClass('coin')
+            }
         }
+  
     }
 }
+
+buildInfoBoard();     
+generateMaze();        
+
 
 function grabSquare(x,y){
     return $(`.square[x="${x}"][y="${y}"]`)
@@ -78,6 +98,8 @@ function grabSquare(x,y){
 // snd.play();
 
 const doctor = {
+    gameBoard: gameBoardLevelOne,
+    level: 1,
     energy: -1,
     x:0,
     y:9,
@@ -86,9 +108,10 @@ const doctor = {
     itemsFound: 0,
     alive: true,
     className: "doctor11",
-    classNameRight: 'doctor11',
-    classNameLeft: "doctor11Left",
+    // classNameRight: 'doctor11',
+    // classNameLeft: "doctor11Left",
     screwDriver: 'screwdriver11',
+
     render(){
         $(`.${this.className}`).removeClass('key')
         $(`.${this.className}`).removeClass(`${this.screwDriver}`)
@@ -138,11 +161,18 @@ const doctor = {
         direction = null
         $('#lives').text(this.lives)
         alert(`Be carefull! The Doctor has ${this.lives} regenerations left!`)
+        if (this.level === 1){
+            this.x = 0
+            this.y = 9
+        } if (this.level === 2){
+            this.x = 0
+            this.y = 12
+        }
         this.regeneration();
     },
     regeneration(){
-        this.x = 0
-        this.y = 9
+        // this.x = 0
+        // this.y = 9
         if (this.lives=== 3){
             this.className = 'doctor11'
             $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
@@ -170,13 +200,13 @@ const doctor = {
                 this.className = 'doctor12'
                 $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
                 this.screwDriver= 'screwdriver12'
-                lostItems[1].render()
-            }           
+                if(this.level === 1){
+                    lostItems[1].render()
+                } else {
+                    lostItems[4].render()
+                }
+            }   
         } else if (this.lives === 1){
-            
-            console.log('this.lives',this.lives)
-            console.log('this.screwDrivers',this.screwDriver)
-
             if($('.second').hasClass(`${this.screwDriver}`)){       
                 ($('.second').removeClass(`${this.screwDriver}`))
                 this.className = 'doctor13'         
@@ -186,16 +216,17 @@ const doctor = {
                 this.className = 'doctor13'
                 $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
                 this.screwDriver= 'screwdriver13'
-                lostItems[1].render()
+                if(this.level === 1){
+                    lostItems[1].render()
+                } else {
+                    lostItems[4].render()
+                }
+                
             }
         }
-    
         grabSquare(this.x,this.y).addClass(`${this.className}`)
         this.alive = true
         this.render()
-
- 
-      
     },
     stopAliens (){
         Alien2.destroy();
@@ -207,9 +238,21 @@ const doctor = {
     checkWin (){
         if(grabSquare(this.x,this.y).hasClass('tardis')){
             if ($('.first').hasClass('key') &&  $('.second').hasClass(`${this.screwDriver}`)){
-            alert("You've reached the Tardis!")
-            endGame();
-            score();
+                console.log('this.level', this.level)
+                this.level += 1
+                gameBoard = gameBoardLevelTwo
+                // this.gameboard = gameBoardLevelTwo
+                console.log("this.level",this.level)
+                $('#levelNumber').text(this.level)
+                alert("You've reached the Tardis!")
+                if(this.level === 2){
+                    nextLevel()
+                } else if (this.level > 2){
+                endGame();
+                score();
+                }
+
+           
             } else {
                 alert("You're missing something! Make sure you find everything that was lost.")
                 this.x = 10
@@ -354,13 +397,118 @@ const lostItems = [
     render(){
         grabSquare(this.x,this.y).removeClass('coin')
         grabSquare(this.x,this.y).addClass('tardis')
+    }
+},
+    tardisLevelTwo = {
+        x:14,
+        y:1,
+        render(){
+            grabSquare(this.x,this.y).removeClass('coin')
+            grabSquare(this.x,this.y).addClass('tardis')
+        }, 
     },
-}
+    screwdriverLevelTwo = {
+        x:13,
+        y:13,
+        render(){
+            grabSquare(this.x,this.y).removeClass('coin')
+            grabSquare(this.x,this.y).addClass(`${doctor.screwDriver}`)
+        }
+    },
+
 ]
 
 lostItems[0].render();
 lostItems[1].render();
 lostItems[2].render();
+
+
+
+function start (){
+    for(let i = 0; i < aliens.length; i++){
+        aliens[i].destroy();
+        aliens[i].removeAlien();
+    }
+    $('body').empty()
+    doctor.lives = 3
+    doctor.level = 1
+    doctor.energy = 0
+    doctor.direction =  null,
+    doctor.itemsFound = 0
+    buildInfoBoard()
+    generateMaze()
+    doctor.regeneration()
+    lostItems[2].render();
+    grabSquare(1,1).removeClass('coin')
+    grabSquare(1,1).addClass('key')
+    grabSquare(10,10).removeClass('coin')
+    grabSquare(10,10).addClass(`${doctor.screwDriver}`)
+    $('.alien2').removeClass('alien2')
+    $('.alien3').removeClass('alien3')
+    $('.alien4').removeClass('alien4')
+    $('.alien5').removeClass('alien5')
+    let Alien6 = new Alien(7,5,"alien1",500);
+    let Alien7 = new Alien(5,6,"alien2",500);
+    let Alien8 = new Alien(5,4,"alien3",500);
+    let Alien9 = new Alien(6,6,"alien4",500);
+}
+
+function nextLevel (){
+    for(let i = 0; i < aliens.length; i++){
+        aliens[i].destroy();
+        aliens[i].removeAlien();
+    }
+    $('.maze').empty()
+    doctor.direction =  null,
+    doctor.itemsFound = 0
+    generateMaze()
+    $('.square').css({'height': '4.5vh'}, {'width': '4.5vh'});
+    doctor.x = 0
+    doctor.y = 12
+    doctor.regeneration()
+    $('.first').removeClass('key')
+    $(`.${doctor.screwDriver}`).removeClass(`${doctor.screwDriver}`);
+    lostItems[3].render();
+    grabSquare(1,1).removeClass('coin')
+    grabSquare(1,1).addClass('key')
+    grabSquare(13,13).removeClass('coin')
+    grabSquare(13,13).addClass(`${doctor.screwDriver}`)
+    $('.alien2').removeClass('alien2')
+    $('.alien3').removeClass('alien3')
+    $('.alien4').removeClass('alien4')
+    $('.alien5').removeClass('alien5')
+    let Alien6 = new Alien(8,7,"alien1",500);
+    let Alien7 = new Alien(7,7,"alien2",500);
+    let Alien8 = new Alien(6,7,"alien3",500);
+    let Alien9 = new Alien(7,8,"alien4",500);
+    let Alien10 = new Alien(7,6,"alien5",500);
+    let Alien11 = new Alien(3,3,"alien6",500);
+    let Alien12 = new Alien(11,11,"alien7",500)
+}
+/*
+level 2
+maze div 
+    width:  2.8vmax; 
+    height: 2.8vmax;
+
+sonic 
+x=13, y=13
+
+enemy - cybermen maybe / weeping Angels
+8,7
+7,7
+6,7
+7,8
+7,6
+3,3
+11,11
+*/
+
+
+
+
+
+
 
 
 
@@ -393,8 +541,12 @@ const highScoreArray = [
 
 function endGame(){
     playerScore = doctor.energy
+    doctor.level = 1
+    console.log("doctor.level",doctor.level)
     $('body').empty()
 }
+
+/////////build score board
 
 function buildScoreboard(){
     const boardContainer = $('<div class=boardContainer>')
@@ -409,7 +561,6 @@ function buildScoreboard(){
     const nameEnter = $('<div class=columnC id=nameEnter/>')
     $(board).append(highScore, theplayerScore, nameReg, name, nameEnter)
     $('.playerScore').text(playerScore)
-
 }
 
 function buildNameBoxes (){
@@ -434,10 +585,9 @@ function buildLetters (){
                 }
             }
         });
-
     }
-
 } 
+
 function addEnterButton (){
     const enter = $(`<div class=letter id=28>`).text('SUBMIT')
     $('.alphabet').append(enter)
@@ -452,7 +602,6 @@ function addEnterButton (){
         buildHighScoreNameBox();
         fillInPlayerStats();
         $('.nameRegisteredSpot').remove()
-
     })
 }
 
@@ -471,6 +620,7 @@ function buildHighScoreNameBox (){
     const nameListHeader = $('<h3 class=nameRegistared/>').text("YOUR NAME WAS REGISTERED.")
     $('.alphabet').append(nameListHeader)
 }
+
 function buildScoreHolderTable (){
     const playerNameTable = $('<div>').addClass('playerNameTable')
     $('.highScoreBoard').append(playerNameTable)
@@ -526,35 +676,13 @@ function score(){
     fillInPlayerStats();
 }
 
-function start (){
-    for(let i = 0; i < aliens.length; i++){
-        aliens[i].destroy();
-        aliens[i].removeAlien();
 
-    }
-    $('body').empty()
-    doctor.lives = 3
-    doctor.energy = 0
-    doctor.direction =  null,
-    doctor.itemsFound = 0
-    generateMaze()
-    doctor.regeneration()
-    lostItems[2].render();
-    grabSquare(1,1).removeClass('coin')
-    grabSquare(1,1).addClass('key')
-    grabSquare(10,10).removeClass('coin')
-    grabSquare(10,10).addClass(`${doctor.screwDriver}`)
-    // Alien2 = new Alien(7,5,"alien1",500);
-    $('.alien2').removeClass('alien2')
-    $('.alien3').removeClass('alien3')
-    $('.alien4').removeClass('alien4')
-    $('.alien5').removeClass('alien5')
-    // Alien2.render(7,5)
-    // Alien3.render(5,6)
-    // Alien4.render(5,4)
-    // Alien5.render(6,6)
-    let Alien6 = new Alien(7,5,"alien1",500);
-    let Alien7 = new Alien(5,6,"alien2",500);
-    let Alien8 = new Alien(5,4,"alien3",500);
-    let Alien9 = new Alien(6,6,"alien4",500);
-}
+// function colorMaze (){
+//     for(let i = 0; i < gameBoard.length; i++){
+//         for(let b = 0; b < gameBoard[i].length; b++){
+//                 if(gameBoard[i][b]=== 0){
+//                     square.css('background-color','black')         
+//                 }        
+//         }
+//     }
+// }

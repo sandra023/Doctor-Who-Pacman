@@ -53,12 +53,16 @@ h4 {
     /* font-size: 1.3vmax */
     font-size: 100%
 }
+
 #energy {
     margin: 6%
 }
 #lives {
     margin: 6%
 }
+
+
+
 .column {
     float: left;
     height: 4vmax;
@@ -79,19 +83,25 @@ h4 {
     margin: 10px
   }
 #right {
-    width: 33.33%
+    width: 25%
 }
 #middle {
-    width: 33.33%
+    width: 25%
 }
 #left {
-    width: 33.33%
+    width: 25%
+}
+#level {
+    width: 25%
+}
+.square {
+    height: 5.6vh
 }
 .maze div {
     width:  6vh;
     /* position:  */
     /* position: fixed; */
-    height: 6vh;
+    /* height: 6vh; */
     /* width:  3.25vmax;
     height: 3.25vmax; */
     margin: 0;
@@ -106,7 +116,7 @@ h4 {
 }
 .coin {
     background-image: url('../DoctorWho/coin.gif');
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
 
 }
@@ -131,6 +141,7 @@ h4 {
     background-image: url('../DoctorWho/doctor12.gif');
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: center;
 }
 /* .doctor12Left {
     background-image: url('../DoctorWho/doctor12left.gif');
@@ -177,6 +188,25 @@ h4 {
     background-repeat: no-repeat;
     background-position: center;
 }
+.alien5 {
+    background-image: url('../DoctorWho/dalek.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.alien6 {
+    background-image: url('../DoctorWho/dalek2.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.alien7 {
+    background-image: url('../DoctorWho/dalek1.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 
 .screwdriver11 {
     background-image: url('../DoctorWho/11Screwdriver.gif');
