@@ -127,17 +127,14 @@ const doctor = {
         if (this.alive)
         {
         if(this.direction=== "left" && grabSquare(this.x-1,this.y).hasClass('path')){
-            // this.doctorDirection = "Left"
             this.x--;
         } else if (this.direction === "right" && grabSquare(this.x+1,this.y).hasClass('path')){
-            // this.doctorDirection = 'Right'
             this.x++;
         } else  if (this.direction=== "up" && grabSquare(this.x,this.y+1).hasClass('path')){
             this.y++;
         } else if (this.direction === "down" && grabSquare(this.x,this.y-1).hasClass('path')){
             this.y--
         }
-        // this.whichWay();
         this.gatherItems()
         this.render();
 
@@ -177,8 +174,6 @@ const doctor = {
         this.regeneration();
     },
     regeneration(){
-        // this.x = 0
-        // this.y = 9
         if (this.lives=== 3){
             this.direction = null
             this.className = 'doctor11'
@@ -236,7 +231,6 @@ const doctor = {
             }
         }
         grabSquare(this.x,this.y).addClass(`${this.className}${this.doctorDirection}`)
-        // grabSquare(this.x,this.y).addClass(`${this.classNameRight}`)
         this.alive = true
         this.render()
     },
