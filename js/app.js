@@ -98,7 +98,7 @@ function grabSquare(x,y){
 // snd.play();
 
 const doctor = {
-    gameBoard: gameBoardLevelOne,
+    // gameBoard: gameBoardLevelOne,
     level: 1,
     energy: -1,
     x:0,
@@ -174,6 +174,8 @@ const doctor = {
         this.regeneration();
     },
     regeneration(){
+        this.x= 0
+        this.y= 9
         if (this.lives=== 3){
             this.direction = null
             this.className = 'doctor11'
@@ -247,7 +249,6 @@ const doctor = {
                 console.log('this.level', this.level)
                 this.level += 1
                 gameBoard = gameBoardLevelTwo
-                // this.gameboard = gameBoardLevelTwo
                 console.log("this.level",this.level)
                 $('#levelNumber').text(this.level)
                 alert("You've reached the Tardis!")
@@ -436,13 +437,13 @@ const lostItems = [
 
 
 
-function start (){
+function restart (){
     for(let i = 0; i < aliens.length; i++){
         aliens[i].destroy();
         aliens[i].removeAlien();
     }
     $('body').empty()
-    doctor.gameBoard = gameBoardLevelOne,
+    gameBoard = gameBoardLevelOne,
     doctor.lives = 3
     doctor.level = 1
     doctor.energy = 0
@@ -451,6 +452,7 @@ function start (){
     doctor.itemsFound = 0
     buildInfoBoard()
     generateMaze()
+
     doctor.regeneration()
     lostItems[2].render();
     grabSquare(1,1).removeClass('coin')
@@ -549,6 +551,7 @@ const highScoreArray = [
 
 function endGame(){
     playerScore = doctor.energy
+    
     doctor.level = 1
     console.log("doctor.level",doctor.level)
     $('body').empty()
@@ -659,7 +662,7 @@ function buildStartButton (){
     $('.boardContainer').append(replay)
     // $('.highScoreBoard').append(replay)
     replay.click(function(e) {
-        start();
+        restart();
         // readyPlayerOne()
     });
 }
