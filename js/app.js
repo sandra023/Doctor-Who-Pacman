@@ -86,8 +86,8 @@ function generateMaze() {
     }
 }
 
-buildInfoBoard();     
-generateMaze();        
+// buildInfoBoard();     
+// generateMaze();        
 
 
 function grabSquare(x,y){
@@ -180,7 +180,8 @@ const doctor = {
         // this.x = 0
         // this.y = 9
         if (this.lives=== 3){
-            this.className = 'doctor11Right'
+            this.direction = null
+            this.className = 'doctor11'
             $(`.${this.screwDriver}`).removeClass(`${this.screwDriver}`);
             this.screwDriver= 'screwdriver11'
             lostItems[1].render()
@@ -259,7 +260,6 @@ const doctor = {
                 if(this.level === 2){
                     nextLevel()
                 } else if (this.level > 2){
-                endGame();
                 score();
                 }
 
@@ -279,7 +279,7 @@ const doctor = {
         if(this.lives === 0){
         alert("Game Over")
         this.stopAliens();
-        endGame();
+        // endGame();
         setTimeout(()=>{
             score();
         },250)
@@ -287,9 +287,10 @@ const doctor = {
     }
 }
 
-
-doctor.render()
-doctor.move()
+// buildInfoBoard();     
+// generateMaze();       
+// doctor.render()
+// doctor.move()
 
 
 $('body').on('keydown', function(e){
@@ -335,7 +336,6 @@ class Alien{
     }
     checkKill (){
         if (grabSquare(this.x,this.y).hasClass(`${doctor.className}${doctor.doctorDirection}`)){
-        // if (grabSquare(this.x,this.y).hasClass(`${doctor.classNameRight}`)|| grabSquare(this.x,this.y).hasClass(`${doctor.classNameLeft}`)){
             doctor.doctorDies();
             doctor.gameOver();
         }
@@ -385,6 +385,8 @@ class Alien{
         grabSquare(this.x,this.y).removeClass(this.image)
     }
 }
+
+
 const Alien2 = new Alien(7,5,"alien1",500);
 const Alien3 = new Alien(5,6,"alien2",500);
 const Alien4 = new Alien(5,4,"alien3",500);
@@ -434,9 +436,9 @@ const lostItems = [
 
 ]
 
-lostItems[0].render();
-lostItems[1].render();
-lostItems[2].render();
+// lostItems[0].render();
+// lostItems[1].render();
+// lostItems[2].render();
 
 
 
@@ -446,10 +448,12 @@ function start (){
         aliens[i].removeAlien();
     }
     $('body').empty()
+    doctor.gameBoard = gameBoardLevelOne,
     doctor.lives = 3
     doctor.level = 1
     doctor.energy = 0
     doctor.direction =  null,
+    doctor.doctorDirection = 'Right'
     doctor.itemsFound = 0
     buildInfoBoard()
     generateMaze()
@@ -501,24 +505,18 @@ function nextLevel (){
     let Alien11 = new Alien(3,3,"alien6",500);
     let Alien12 = new Alien(11,11,"alien7",500)
 }
-/*
-level 2
-maze div 
-    width:  2.8vmax; 
-    height: 2.8vmax;
 
-sonic 
-x=13, y=13
 
-enemy - cybermen maybe / weeping Angels
-8,7
-7,7
-6,7
-7,8
-7,6
-3,3
-11,11
-*/
+function readyPlayerOne (){
+    buildInfoBoard();     
+    generateMaze();       
+    doctor.render()
+    doctor.move()
+    lostItems[0].render();
+    lostItems[1].render();
+    lostItems[2].render();
+}
+readyPlayerOne()
 
 
 
@@ -615,9 +613,10 @@ function addEnterButton (){
         }
         playerName = ''
         playerScore = 0
-        buildHighScoreNameBox();
+        // buildHighScoreNameBox();
+        $('.nameRegisteredSpot').text('YOUR NAME HAS BEEN REGISTERD')
         fillInPlayerStats();
-        $('.nameRegisteredSpot').remove()
+       
     })
 }
 
@@ -630,11 +629,6 @@ function addNameScore (){
             break; 
         }
     }
-}
-
-function buildHighScoreNameBox (){
-    const nameListHeader = $('<h3 class=nameRegistared/>').text("YOUR NAME WAS REGISTERED.")
-    $('.alphabet').append(nameListHeader)
 }
 
 function buildScoreHolderTable (){
@@ -672,12 +666,13 @@ function buildStartButton (){
     // $('.highScoreBoard').append(replay)
     replay.click(function(e) {
         start();
+        // readyPlayerOne()
     });
 }
 
 function addEmptySpot (){
     const emptySpot = $('<div class=nameRegisteredSpot>')
-    $('.alphabet').append(emptySpot)
+    $('.highScoreBoard').append(emptySpot)
 }
 
 function score(){
